@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NightScout_View</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="appwidget_text">Beispiel</string>
+    <string name="add_widget">Add widget</string>
+    <string name="action_sync">Syncronisieren</string>
+    <string name="action_syncall">Syncronisieren Alle</string>
+
+    <string name="pref_description_enable_mongo">Aktivieren der Datenbank</string>
+    <string name="pref_title_enable_mongo">Datenbank Aktivieren</string>
+    <string name="pref_title_Datenbank_Verbindung">Datenbank Verbindungsstring</string>
+    <string name="pref_title_mongodb_collection">Mongo Collection</string>
+    <string name="pref_dialog_mongodb_collection">MongoCollection</string>
+    <string name="pref_message_mongodb_collection">Collection Namen eingeben</string>
+    <string name="pref_default_mongodb_collection">entries</string>
+    <string name="pref_message_mongodb_uri">Ersetze Beispielwerte {}\'s mit deinen</string>
+    <string name="pref_default_mongodb_uri">mongodb://{user}:{password}@{host}.mongolab.com:{11111}/{database}</string>
+    <string name="pref_title_Hypowarnschwelle1">Untere Hypowarnschwelle</string>
+    <string name="pref_message_Hypowarnschwelle1">Eingabe eigener Hypo Wert (default 55)</string>
+    <string name="pref_default_Hypowarnschwelle1">55</string>
+    <string name="pref_title_Hypowarnschwelle2">Erste Hypowarnschwelle</string>
+    <string name="pref_message_Hypowarnschwelle2">Eingabe eigener Hypo Wert (default 70)</string>
+    <string name="pref_default_Hypowarnschwelle2">70</string>
+    <string name="pref_title_Hyperwarnschwelle">Hyperwarnschwelle</string>
+    <string name="pref_message_Hyperwarnschwelle">Eingabe eigener Hyper Wert (default 250)</string>
+    <string name="pref_default_Hyperwarnschwelle">250</string>
+
+    <string name="pref_header_notifications">Alarme</string>
+    <string name="pref_title_vibrate">Vibrieren</string>
+    <string name="pref_title_use_trends">Trends für Alarmberechnung nutzen</string>
+
+
+</resources>

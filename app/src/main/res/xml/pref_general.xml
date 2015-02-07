@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="enable_mongo"
+        android:title="@string/pref_title_enable_mongo"
+        android:summary="@string/pref_description_enable_mongo"
+        android:defaultValue="false" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <EditTextPreference
+        android:key="cloud_storage_mongodb_uri"
+        android:title="@string/pref_title_Datenbank_Verbindung"
+        android:dialogMessage="@string/pref_message_mongodb_uri"
+        android:defaultValue="@string/pref_default_mongodb_uri"
+    />
+
+    <EditTextPreference
+        android:key="cloud_storage_mongodb_collection"
+        android:title="@string/pref_title_mongodb_collection"
+        android:dialogMessage="@string/pref_message_mongodb_collection"
+        android:defaultValue="@string/pref_default_mongodb_collection"/>
+
+
+</PreferenceScreen>

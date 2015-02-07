@@ -1,0 +1,44 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <CheckBoxPreference
+        android:key="notifications_new_message_vibrate"
+        android:title="@string/pref_title_vibrate"
+        android:defaultValue="true" />
+
+    <CheckBoxPreference
+        android:key="alarm_use_Trends"
+        android:title="@string/pref_title_use_trends"
+        android:defaultValue="true" />
+
+
+
+    <EditTextPreference
+        android:key="Hypowarnschwelle1"
+        android:title="@string/pref_title_Hypowarnschwelle1"
+        android:dialogMessage="@string/pref_message_Hypowarnschwelle1"
+        android:defaultValue="@string/pref_default_Hypowarnschwelle1"
+        android:singleLine="true"
+        android:numeric="integer"
+        />
+
+    <EditTextPreference
+        android:key="Hypowarnschwelle2"
+        android:title="@string/pref_title_Hypowarnschwelle2"
+        android:dialogMessage="@string/pref_message_Hypowarnschwelle2"
+        android:defaultValue="@string/pref_default_Hypowarnschwelle2"
+        android:singleLine="true"
+        android:numeric="integer"
+        />
+
+    <EditTextPreference
+        android:key="Hyperwarnschwelle"
+        android:title="@string/pref_title_Hyperwarnschwelle"
+        android:dialogMessage="@string/pref_message_Hyperwarnschwelle"
+        android:defaultValue="@string/pref_default_Hyperwarnschwelle"
+        android:singleLine="true"
+        android:numeric="integer"
+        />
+
+</PreferenceScreen>
