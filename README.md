@@ -12,7 +12,7 @@ Features
 - Vibration Alarm.
 - The thresholds of the alarmvalues can be extendet with the direction.
   So you can get an Alarm befor the low or high sugarvalue is there.
-- The app uses an internat SQL Database so the Data gets only one time througt the internet.
+- The app uses an internal SQL Database so the Data gets only one time througt the internet.
 
 
 
