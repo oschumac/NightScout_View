@@ -1,8 +1,9 @@
 # NightScout_View
 NightScout_View is designed as an Visualisation.
-it works direktly on the MongoDB and don't need AZURE.
+It works direktly on the MongoDB and don't need AZURE.
 My intension was to get an APP which runs the Hole time.
-Also when the telephone sleeps. To get always an relyable Alarm.
+Also when the telephone sleeps to get always an relyable Alarm.
+And its designed to be fast also when internet ist not.
 
 Features
 - Direkt MongoDB connect so it works also properly on a poor internet connection
