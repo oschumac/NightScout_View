@@ -290,7 +290,7 @@ public class MainActivity extends ActionBarActivity{
 
         // Einen Thread Nur für das Alarmhändling
         Alarmhandling = new Runnable() {
-            private long sTime=1000;
+            private long sTime=300000;
 
             boolean enable_VIB = prefs.getBoolean("notifications_new_message_vibrate",false);
 
@@ -422,6 +422,7 @@ public class MainActivity extends ActionBarActivity{
     public void imageAlarmClick(View v) {
         Log.d(TAG,"onClick imageAlarmClick");
         CGMAlarm=false;
+        t_Alarmhandling.interrupt();
         AlarmVib.cancel();
     }
 
