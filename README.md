@@ -1,4 +1,6 @@
 # NightScout_View
+
+[![Join the chat at https://gitter.im/oschumac/NightScout_View](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/oschumac/NightScout_View?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 NightScout_View is designed as an Visualisation.
 It works direktly on the MongoDB and don't need AZURE.
 My intension was to get an APP which runs the hole time.
