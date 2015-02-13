@@ -396,8 +396,8 @@ public class CanvasView extends View {
         long ymax = height;
         long xmax = x2-x1;
 
-        float scaleymin = 00;
-        float scaleymax = 350;
+        float scaleymin = 0;
+        float scaleymax = 400;
 
         float scalexmin = 0;
         float scalexmax= 24;
@@ -408,40 +408,40 @@ public class CanvasView extends View {
 
 
         // --------------- erste Horizontale Linie
-        float scaleypos1 = y1 - 60 * factory;
+        float scaleypos1 = y1 - scaleymin - 60 * factory;
         mPath4.moveTo(left+ 10, scaleypos1);
         canvas.drawText("60", 5, scaleypos1 - 5 , mPaint3);
         mPath4.lineTo(width, scaleypos1);
 
         // --------------- zweite Horizontale Linie
-        float scaleypos2 = y1 - 80 * factory;
+        float scaleypos2 = y1 - scaleymin - 80 * factory;
         canvas.drawText("80", 5, scaleypos2 - 5 , mPaint3);
         mPath4.moveTo(left+ 10, scaleypos2);
         mPath4.lineTo(width, scaleypos2);
 
         // --------------- dritte Horizontale Linie
-        float scaleypos3 = y1 - 120 * factory;
+        float scaleypos3 = y1 - scaleymin - 120 * factory;
         canvas.drawText("120", 0, scaleypos3 - 5 , mPaint3);
         mPath4.moveTo(left+ 10, scaleypos3);
         mPath4.lineTo(width, scaleypos3);
 
         // --------------- vierte Horizontale Linie
-        float scaleypos4 = y1 - 160 * factory;
+        float scaleypos4 = y1 - scaleymin - 160 * factory;
         canvas.drawText("160", 0, scaleypos4 - 5 , mPaint3);
         mPath4.moveTo(left+ 10, scaleypos4);
         mPath4.lineTo(width, scaleypos4);
 
         // --------------- fünfte Horizontale Linie
-        float scaleypos5 = y1 - 250 * factory;
+        float scaleypos5 = y1 - scaleymin - 250 * factory;
         canvas.drawText("250", 0, scaleypos5 - 5 , mPaint3);
         mPath4.moveTo(left+ 10, scaleypos5);
         mPath4.lineTo(width, scaleypos5);
 
         // --------------- sechste Horizontale Linie
-        //float scaleypos6 = y1 - 350 * factory;
-        //canvas.drawText("350", 0, scaleypos6 - 5 , mPaint3);
-        //mPath4.moveTo(left+ 10, scaleypos6);
-        //mPath4.lineTo(width, scaleypos6);
+        float scaleypos6 = y1 - scaleymin - 350 * factory;
+        canvas.drawText("350", 0, scaleypos6 - 5 , mPaint3);
+        mPath4.moveTo(left+ 10, scaleypos6);
+        mPath4.lineTo(width, scaleypos6);
 
         // --------------- erste Vertikale  Linie
         float scalexpos1 = 6 * factorx; // 6:00 h
@@ -533,8 +533,8 @@ public class CanvasView extends View {
         long ymax = height;
         long xmax = x2-x1;
 
-        float scaleymin = 00;  // BZ werte Bereich
-        float scaleymax = 350;
+        float scaleymin = 0;  // BZ werte Bereich
+        float scaleymax = 400;
 
         float scalexmin = 0;  // Zeit Werte Bereich
         float scalexmax= 60*60*24*1000;
@@ -552,7 +552,7 @@ public class CanvasView extends View {
         if (aktdate<0) {return true;}
 
         timepos = x1 + aktdate * factorx;
-        svgpos = y1 - sgv * factory;
+        svgpos = y1 - scaleymin - sgv * factory;
 
         // Log.d(TAG,"setChartPoint SGV: (" + sgv + ") SGV POS: (" +  (svgpos) + ") timepos: (" + timepos +") date (" + date+")");
         // mPaint2.setStrokeWidth(2);
@@ -642,7 +642,6 @@ public class CanvasView extends View {
         //                            - Zeitkorektur vom Tageweise Blättern
 
 
-        // Todo: schon vor 24h beim Aktuellen Tag Nachtmodus ermöglichen.
 
         if (Nachtmodus) {
             if (hour<18) {

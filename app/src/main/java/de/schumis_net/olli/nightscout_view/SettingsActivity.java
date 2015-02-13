@@ -218,6 +218,8 @@ public class SettingsActivity extends PreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("enable_mongo"));
             bindPreferenceSummaryToValue(findPreference("cloud_storage_mongodb_uri"));
             bindPreferenceSummaryToValue(findPreference("cloud_storage_mongodb_collection"));
+            bindPreferenceSummaryToValue(findPreference("cloud_storage_mongodb_treatments_collection"));
+            bindPreferenceSummaryToValue(findPreference("cloud_storage_mongodb_device_status_collection"));
         }
     }
 

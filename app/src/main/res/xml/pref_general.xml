@@ -24,5 +24,18 @@
         android:dialogMessage="@string/pref_message_mongodb_collection"
         android:defaultValue="@string/pref_default_mongodb_collection"/>
 
+    <EditTextPreference
+        android:key="cloud_storage_mongodb_treatments_collection"
+        android:title="@string/pref_title_mongodb_treatments_collection"
+        android:dialogMessage="@string/pref_message_mongodb_treatments_collection"
+        android:defaultValue="@string/pref_default_mongodb_treatments_collection"/>
+
+    <EditTextPreference
+        android:key="cloud_storage_mongodb_device_status_collection"
+        android:title="@string/pref_title_mongodb_device_status_collection"
+        android:dialogMessage="@string/pref_message_mongodb_device_status_collection"
+        android:defaultValue="@string/pref_default_mongodb_device_status_collection"/>
+
+
 
 </PreferenceScreen>

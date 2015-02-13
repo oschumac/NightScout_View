@@ -94,6 +94,7 @@ public class MainActivity extends ActionBarActivity{
     private long Glob_date;
     private String BZ_VALUE;
     private String DATESTRING;
+    private String devicebatterystat="100%";
     // private DataCollection Daten = new DataCollection();
     private boolean firstcycle=true;
     private int firstalldata=0;
@@ -460,6 +461,9 @@ public class MainActivity extends ActionBarActivity{
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
         myNum = Integer.parseInt(bundle.getString("sgv"));
+
+        TextView myTextView_3 = (TextView) findViewById(R.id.textView_3);
+        myTextView_3.setText(devicebatterystat);
 
         TextView myTextView_1 = (TextView) findViewById(R.id.textView_1);
         if (myNum < 30) {
@@ -861,13 +865,80 @@ public class MainActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    // Funktion zum Abfragen der aktuellen Mongodaten
     private long GetMongodata() {
+        GetMongodatads();
+        return GetMongodataCGM();
+    }
 
-        // String dbURI = "mongodb://Lars_2009:Lars65535@ds056727.mongolab.com:56727/larscgm";
-        // String collectionName = "entries";
-        // String dsCollectionName = "devicestatus";
+    // Funktion zum Abfragen der aktuellen Mongodaten
+    private long GetMongodatads() {
+        String dbURI = prefs.getString("cloud_storage_mongodb_uri", null);
+        // String collectionName = prefs.getString("cloud_storage_mongodb_collection", null);
+        String dsCollectionName = prefs.getString("cloud_storage_mongodb_device_status_collection", "devicestatus");
+        // String tmCollectionName = prefs.getString("cloud_storage_mongodb_treatments_collection", "treatments");
 
+        Boolean EnableMongo = prefs.getBoolean("enable_mongo",false);
+
+        int sTime = 60000;
+
+        if (dbURI != null && dsCollectionName != null && EnableMongo) {
+            try {
+                Log.i(TAG, dbURI);
+                MongoConnectionState=false;
+                // connect to db
+                MongoClientURI uri = new MongoClientURI(dbURI.trim());
+                MongoClient client = new MongoClient(uri);
+
+                // get db
+                DB db = client.getDB(uri.getDatabase());
+
+                DBCollection coll = db.getCollection(dsCollectionName);
+                MongoCollCount = coll.count();
+
+                DBCursor Cursor = coll.find().sort(new BasicDBObject("created_at", -1)).limit(1);
+
+                try {
+                    if (!(Cursor==null)) {
+                        while (Cursor.hasNext()) {
+                            DBObject theObj = Cursor.next();
+                            // Log.i(TAG, "MongoDB Gelesen Datensatz :" + theObj.toString());
+
+
+                                 //"_id" : ObjectId("5489d28484eb40bd5f2ce9bd"),
+                                //"uploaderBattery" : 79,
+                                //"created_at" : ISODate("2014-12-11T17:21:08.398Z")
+
+                            devicebatterystat = theObj.get("uploaderBattery").toString()+"%";
+                            Log.d(TAG,"Mongo Device Status: Batterie %" + theObj.get("uploaderBattery").toString() +  " Datum: " +theObj.get("created_at").toString()) ;
+
+                            // DatenSQL.insertentries(bundle);
+                        }
+
+                        MongoConnectionState = true;
+                    } else {
+                        Log.d(TAG,"Mongo keine Daten bekommen evtl keine Netzverbindung");
+                        MongoConnectionState = false;
+                        sTime = 60000;
+                    }
+
+                } finally {
+                    Cursor.close();
+                }
+
+                client.close();
+
+                // Log.i(TAG, "MongoDB gelesen fertig");
+                return sTime;
+
+            } catch (Exception e) {
+                Log.e(TAG, "MongoDB Fehler !!! Code: ", e);
+            }
+        }
+        return sTime;
+    }
+
+    // Funktion zum Abfragen der aktuellen Mongodaten
+    private long GetMongodataCGM() {
         String dbURI = prefs.getString("cloud_storage_mongodb_uri", null);
         String collectionName = prefs.getString("cloud_storage_mongodb_collection", null);
         String dsCollectionName = prefs.getString("cloud_storage_mongodb_device_status_collection", "devicestatus");
@@ -970,14 +1041,9 @@ public class MainActivity extends ActionBarActivity{
         return sTime;
     }
 
+
     // Funktion zum Abfragen der Mongodaten für das Chart
     private void GetMongodataL(int behavior, int skip, int limit) {
-
-
-        // String dbURI = "mongodb://Lars_2009:Lars65535@ds056727.mongolab.com:56727/larscgm";
-        // String collectionName = "entries";
-        // String dsCollectionName = "devicestatus";
-
         String dbURI = prefs.getString("cloud_storage_mongodb_uri", null);
         Log.i(TAG, dbURI);
         String collectionName = prefs.getString("cloud_storage_mongodb_collection", null);
@@ -994,7 +1060,6 @@ public class MainActivity extends ActionBarActivity{
 
                 // get db
                 DB db = client.getDB(uri.getDatabase());
-
 
                 DBCollection coll = db.getCollection(collectionName);
 
@@ -1032,10 +1097,6 @@ public class MainActivity extends ActionBarActivity{
 
                 // { "_id" : { "$oid" : "54a3ef7a3777e50db741594c"} , "device" : "dexcom" , "date" : 1420029696000 , "dateString" : "Wed Dec 31 13:41:36 MEZ 2014" , "sgv" : 127 ,
                 //  "direction" : "Flat" , "type" : "sgv" , "filtered" : 169280 , "unfiltered" : 166048 , "rssi" : 175}
-
-                // CGM error !!! Datensatz muss noch eingepflegt werden
-                // { "_id" : { "$oid" : "54a6e6ce3777e50db7417699"} , "device" : "dexcom" , "date" : 1420224129000 , "dateString" : "Fri Jan 02 19:42:09 CET 2015" , "sgv" : 10 ,
-                // "direction" : "NOT COMPUTABLE" , "type" : "sgv" , "filtered" : 176736 , "unfiltered" : 205216 , "rssi" : 177}
 
                 DBCursor Cursor=null;
                 if (behavior==0) {
@@ -1100,7 +1161,6 @@ public class MainActivity extends ActionBarActivity{
         }
         return;
     }
-
 
 }
 

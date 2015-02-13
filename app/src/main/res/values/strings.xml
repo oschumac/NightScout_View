@@ -12,8 +12,8 @@
     <string name="pref_title_enable_mongo">Datenbank Aktivieren</string>
     <string name="pref_title_Datenbank_Verbindung">Datenbank Verbindungsstring</string>
     <string name="pref_title_mongodb_collection">Mongo Collection</string>
-    <string name="pref_dialog_mongodb_collection">MongoCollection</string>
-    <string name="pref_message_mongodb_collection">Collection Namen eingeben</string>
+    <string name="pref_dialog_mongodb_collection">CGM Collection</string>
+    <string name="pref_message_mongodb_collection">Bitte den Wert für die Collection CGM eingeben!</string>
     <string name="pref_default_mongodb_collection">entries</string>
     <string name="pref_message_mongodb_uri">Ersetze Beispielwerte {}\'s mit deinen</string>
     <string name="pref_default_mongodb_uri">mongodb://{user}:{password}@{host}.mongolab.com:{11111}/{database}</string>
@@ -30,6 +30,12 @@
     <string name="pref_header_notifications">Alarme</string>
     <string name="pref_title_vibrate">Vibrieren</string>
     <string name="pref_title_use_trends">Trends für Alarmberechnung nutzen</string>
+    <string name="pref_title_mongodb_treatments_collection">Treatments Collection</string>
+    <string name="pref_message_mongodb_treatments_collection">Bitte den Wert für die Collection Treatments eingeben!</string>
+    <string name="pref_default_mongodb_treatments_collection">treatments</string>
+    <string name="pref_title_mongodb_device_status_collection">Device Status Collection</string>
+    <string name="pref_message_mongodb_device_status_collection">Bitte den Wert für die Collection Device Status eingeben!</string>
+    <string name="pref_default_mongodb_device_status_collection">devicestatus</string>
 
 
 </resources>

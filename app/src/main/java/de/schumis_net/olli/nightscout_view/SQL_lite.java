@@ -22,91 +22,135 @@ import static java.lang.System.currentTimeMillis;
 
 public class SQL_lite extends SQLiteOpenHelper {
 
-        private static final String TAG =
-        SQL_lite.class.getSimpleName();
-        // Name und Version der Datenbank
-        private static final String DATABASE_NAME = "Nightscout_View.db";
-        private static final int DATABASE_VERSION = 13;
-        // Name und Attribute der Tabelle "mood"
-        public static final String _ID = "_id";
-        public static final String TABLE_NAME_MOOD = "mood";
+    private static final String TAG =
+    SQL_lite.class.getSimpleName();
 
-        public static final String MOOD_TIME = "timeMillis";
-        public static final String MOOD_MOOD = "mood";
+    // Name und Version der Datenbank
+    private static final String DATABASE_NAME = "Nightscout_View.db";
+    private static final int DATABASE_VERSION = 16;
 
-        public static final String TABLE_NAME_ENTRIES = "entries";
-        public static final String ENTRIES_DEVICE = "device";
-        public static final String ENTRIES_DATE = "date";
-        public static final String ENTRIES_DATESTRING = "dateString";
-        public static final String ENTRIES_SGV = "sgv";
-        public static final String ENTRIES_DIRECTION = "direction";
-        public static final String ENTRIES_FILTERED = "filtered";
-        public static final String ENTRIES_UNFILTERED = "unfiltered";
-        public static final String ENTRIES_RSSI = "rssi";
-        public static final String ENTRIES_TYPE = "type";
-        public static boolean CGMAlarm=false;
+    public static final String _ID = "_id";
 
+    public static final String TABLE_NAME_ENTRIES = "entries";
+    public static final String ENTRIES_DEVICE = "device";
+    public static final String ENTRIES_DATE = "date";
+    public static final String ENTRIES_DATESTRING = "dateString";
+    public static final String ENTRIES_SGV = "sgv";
+    public static final String ENTRIES_DIRECTION = "direction";
+    public static final String ENTRIES_FILTERED = "filtered";
+    public static final String ENTRIES_UNFILTERED = "unfiltered";
+    public static final String ENTRIES_RSSI = "rssi";
+    public static final String ENTRIES_TYPE = "type";
+    public static boolean CGMAlarm=false;
 
-    // { "_id" : { "$oid" : "54a3ef7a3777e50db741594c"} , "device" : "dexcom" , "date" : 1420029696000 , "dateString" : "Wed Dec 31 13:41:36 MEZ 2014" , "sgv" : 127 ,
-    //  "direction" : "Flat" , "type" : "sgv" , "filtered" : 169280 , "unfiltered" : 166048 , "rssi" : 175}
-
-
-        // Tabelle mood anlegen
-
-        private static final String TABLE_ENTRIES_CREATE
-                = "CREATE TABLE "
-                + TABLE_NAME_ENTRIES + " (" + _ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ENTRIES_DEVICE + " STRING, "
-                + ENTRIES_DATE + " LONG, "
-                + ENTRIES_DATESTRING + " STRING,  "
-                + ENTRIES_SGV + " LONG, "
-                + ENTRIES_DIRECTION + " STRING, "
-                + ENTRIES_TYPE + " STRING, "
-                + ENTRIES_FILTERED + " LONG, "
-                + ENTRIES_UNFILTERED + " LONG, "
-                + ENTRIES_RSSI + " LONG);";
+    private static final String TABLE_ENTRIES_CREATE
+            = "CREATE TABLE "
+            + TABLE_NAME_ENTRIES + " (" + _ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ENTRIES_DEVICE + " STRING, "
+            + ENTRIES_DATE + " LONG, "
+            + ENTRIES_DATESTRING + " STRING,  "
+            + ENTRIES_SGV + " LONG, "
+            + ENTRIES_DIRECTION + " STRING, "
+            + ENTRIES_TYPE + " STRING, "
+            + ENTRIES_FILTERED + " LONG, "
+            + ENTRIES_UNFILTERED + " LONG, "
+            + ENTRIES_RSSI + " LONG);";
 
 
-        private static final String TABLE_ENTRIES_DATE_INDEX
-                = "create index "
-                + TABLE_NAME_ENTRIES + "_" + ENTRIES_DATE + "_IDX "
-                + " on "
-                + TABLE_NAME_ENTRIES + " ("+ ENTRIES_DATE  +"); ";
+    public static final String TABLE_NAME_TREATMENTS = "treatments";
+    public static final String TREATMENTS_ENTEREDBY = "enteredBy";
+    public static final String TREATMENTS_EVENTTYPE = "eventType";
+    public static final String TREATMENTS_GLYKOSE="glucose";
+    public static final String TREATMENTS_GLYKOSETYPE="glucoseType";
+    public static final String TREATMENTS_INSULIN="insulin";
+    public static final String TREATMENTS_NOTES="notes";
+    public static final String TREATMENTS_CREATED_AT="created_at";
+    public static final String TREATMENTS_CARBS="carbs";
 
-        private static final String TABLE_ENTRIES_SGV_INDEX
-                = "create index "
-                + TABLE_NAME_ENTRIES + "_" + ENTRIES_SGV + "_IDX "
-                + " on "
-                + TABLE_NAME_ENTRIES + " ("+ ENTRIES_SGV  +"); ";
+    private static final String TABLE_TREATMENTS_CREATE
+            = "CREATE TABLE "
+            + TABLE_NAME_TREATMENTS + " (" + _ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TREATMENTS_ENTEREDBY + " STRING, "
+            + TREATMENTS_EVENTTYPE + " STRING, "
+            + TREATMENTS_GLYKOSE + " STRING, "
+            + TREATMENTS_GLYKOSETYPE + " STRING, "
+            + TREATMENTS_INSULIN + " STRING, "
+            + TREATMENTS_NOTES + " STRING, "
+            + TREATMENTS_CREATED_AT + " STRING, "
+            + TREATMENTS_CARBS + " STRING); ";
 
-        private static final String TABLE_ENTRIES_TYPE_INDEX
-                = "create index "
-                + TABLE_NAME_ENTRIES + "_" + ENTRIES_TYPE + "_IDX "
-                + " on "
-                + TABLE_NAME_ENTRIES + " ("+ ENTRIES_TYPE  +"); ";
+    public static final String TABLE_NAME_DEVICESTATUS = "devicestatus";
+    public static final String DEVICESTATUS_UPLOADERBATTERY = "uploaderBattery";
+    public static final String DEVICESTATUS_DATETIME= "datetime";
+
+    private static final String TABLE_DEVICESTATUS_CREATE
+            = "CREATE TABLE "
+            + TABLE_NAME_DEVICESTATUS + " (" + _ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + DEVICESTATUS_UPLOADERBATTERY + " LONG, "
+            + DEVICESTATUS_DATETIME + " STRING);";
+
+
+    private static final String TABLE_ENTRIES_DATE_INDEX
+            = "create index "
+            + TABLE_NAME_ENTRIES + "_" + ENTRIES_DATE + "_IDX "
+            + " on "
+            + TABLE_NAME_ENTRIES + " ("+ ENTRIES_DATE  +"); ";
+
+    private static final String TABLE_ENTRIES_SGV_INDEX
+            = "create index "
+            + TABLE_NAME_ENTRIES + "_" + ENTRIES_SGV + "_IDX "
+            + " on "
+            + TABLE_NAME_ENTRIES + " ("+ ENTRIES_SGV  +"); ";
+
+    private static final String TABLE_ENTRIES_TYPE_INDEX
+            = "create index "
+            + TABLE_NAME_ENTRIES + "_" + ENTRIES_TYPE + "_IDX "
+            + " on "
+            + TABLE_NAME_ENTRIES + " ("+ ENTRIES_TYPE  +"); ";
+
+
+    private static final String TABLE_TREATMENTS_CREATED_AT_INDEX
+            = "create index "
+            + TABLE_NAME_TREATMENTS + "_" + TREATMENTS_CREATED_AT + "_IDX "
+            + " on "
+            + TABLE_NAME_TREATMENTS + " ("+ TREATMENTS_CREATED_AT  +"); ";
+
+    private static final String TABLE_TREATMENTS_EVENTTYPE_INDEX
+            = "create index "
+            + TABLE_NAME_TREATMENTS + "_" + TREATMENTS_EVENTTYPE + "_IDX "
+            + " on "
+            + TABLE_NAME_TREATMENTS + " ("+ TREATMENTS_EVENTTYPE  +"); ";
+
+    private static final String TABLE_DEVICESTATUS_DATE_INDEX
+            = "create index "
+            + TABLE_NAME_DEVICESTATUS + "_" + DEVICESTATUS_DATETIME + "_IDX "
+            + " on "
+            + TABLE_NAME_DEVICESTATUS + " ("+ DEVICESTATUS_DATETIME  +"); ";
+
+
 
     // create index myIndex on myTable (myColumn);
 
 
 
 
-        private static final String TABLE_MOOD_CREATE
-                = "CREATE TABLE "
-                + TABLE_NAME_MOOD + " (" + _ID
-                + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + MOOD_TIME + " INTEGER, "
-                + MOOD_MOOD + " INTEGER);";
 
 
     // Tabelle mood löschen
-        private static final String TABLE_MOOD_DROP =
+        private static final String TABLE_DEVICESTATUS_DROP =
                 "DROP TABLE IF EXISTS "
-                        + TABLE_NAME_MOOD;
+                        + TABLE_NAME_DEVICESTATUS;
 
-    private static final String TABLE_ENTRIES_DROP =
-            "DROP TABLE IF EXISTS "
-                    + TABLE_NAME_ENTRIES;
+        private static final String TABLE_TREATMENTS_DROP =
+                "DROP TABLE IF EXISTS "
+                        + TABLE_NAME_TREATMENTS;
+
+        private static final String TABLE_ENTRIES_DROP =
+                    "DROP TABLE IF EXISTS "
+                            + TABLE_NAME_ENTRIES;
 
     SQL_lite(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -116,17 +160,6 @@ public class SQL_lite extends SQLiteOpenHelper {
         public void onCreate(SQLiteDatabase db) {
 
             try {
-
-                db.execSQL(TABLE_ENTRIES_DROP);
-
-            } catch (SQLiteException e) {
-                Log.e(TAG, "oncreate TABLE_ENTRIES_DROP", e);
-            } finally {
-                Log.d(TAG, "onCreate TABLE_ENTRIES_DROP successfull");
-            }
-
-            try {
-
                 db.execSQL(TABLE_ENTRIES_CREATE);
 
             } catch (SQLiteException e) {
@@ -138,36 +171,52 @@ public class SQL_lite extends SQLiteOpenHelper {
             try {
 
                 db.execSQL(TABLE_ENTRIES_DATE_INDEX);
-
-            } catch (SQLiteException e) {
-                Log.e(TAG, "oncreate TABLE_ENTRIES_DATE_INDEX", e);
-            } finally {
-                Log.d(TAG, "onCreate TABLE_ENTRIES_DATE_INDEX successfull");
-            }
-
-
-
-
-            try {
-
                 db.execSQL(TABLE_ENTRIES_SGV_INDEX);
-
-            } catch (SQLiteException e) {
-                Log.e(TAG, "oncreate TABLE_ENTRIES_SGV_INDEX", e);
-            } finally {
-                Log.d(TAG, "onCreate TABLE_ENTRIES_SGV_INDEX successfull");
-            }
-
-            try {
-
                 db.execSQL(TABLE_ENTRIES_TYPE_INDEX);
 
             } catch (SQLiteException e) {
-                Log.e(TAG, "oncreate TABLE_ENTRIES_TYPE_INDEX", e);
+                Log.e(TAG, "oncreate TABLE_ENTRIES_INDEX", e);
             } finally {
-                Log.d(TAG, "onCreate TABLE_ENTRIES_TYPE_INDEX successfull");
+                Log.d(TAG, "onCreate TABLE_ENTRIES_INDEX successfull");
             }
 
+            try {
+                db.execSQL(TABLE_DEVICESTATUS_CREATE);
+
+            } catch (SQLiteException e) {
+                Log.e(TAG, "oncreate TABLE_DEVICESTATUS_CREATE", e);
+            } finally {
+                Log.d(TAG, "onCreate TABLE_DEVICESTATUS_CREATE successfull");
+            }
+
+            try {
+                db.execSQL(TABLE_DEVICESTATUS_DATE_INDEX);
+
+            } catch (SQLiteException e) {
+                Log.e(TAG, "oncreate TABLE_DEVICESTATUS_DATE_INDEX", e);
+            } finally {
+                Log.d(TAG, "onCreate TABLE_DEVICESTATUS_DATE_INDEX successfull");
+            }
+
+
+            try {
+                db.execSQL(TABLE_TREATMENTS_CREATE);
+
+            } catch (SQLiteException e) {
+                Log.e(TAG, "oncreate TABLE_TREATMENTS_CREATE", e);
+            } finally {
+                Log.d(TAG, "onCreate TABLE_TREATMENTS_CREATE successfull");
+            }
+
+            try {
+                db.execSQL(TABLE_TREATMENTS_CREATED_AT_INDEX);
+                db.execSQL(TABLE_TREATMENTS_EVENTTYPE_INDEX);
+
+            } catch (SQLiteException e) {
+                Log.e(TAG, "oncreate TABLE_TREATMENTS_CREATED_AT_INDEX", e);
+            } finally {
+                Log.d(TAG, "onCreate TABLE_TREATMENTS_CREATED_AT_INDEX successfull");
+            }
         }
 
 
@@ -179,7 +228,9 @@ public class SQL_lite extends SQLiteOpenHelper {
                     + newVersion
                     + "; alle Daten werden gelöscht");
             db.execSQL(TABLE_ENTRIES_DROP);
-            db.execSQL(TABLE_MOOD_DROP);
+            db.execSQL(TABLE_DEVICESTATUS_DROP);
+            db.execSQL(TABLE_TREATMENTS_DROP);
+
             onCreate(db);
         }
 
